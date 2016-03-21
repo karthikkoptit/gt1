@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	<context:property-placeholder
+		location="classpath*:messages.properties, classpath*:javaapp-common.properties, classpath*:javaapp-${com.numi.java.app.env}.properties"
+		ignore-resource-not-found="true" />
+	<context:component-scan
+		base-package="com.nutrisystem.orange.java.ws, com.nutrisystem.orange.java.ws.helper, 
+		com.nutrisystem.orange.java.sequence, com.nutrisystem.orange.java.range, com.nutrisystem.orange.java.validator, 
+		com.nutrisystem.orange.java.ws.output.mapper, com.nutrisystem.orange.java.cache, com.nutrisystem.orange.java.mapper, 
+		com.nutrisystem.orange.java.calculator, com.nutrisystem.orange.java.lookup, com.nutrisystem.orange.java.appservice
+		com.nutrisystem.orange.java.scheduled com.nutrisystem.orange.java.logger" />
+	<context:annotation-config />
+	<task:annotation-driven />
+
+	<bean id="springApplicationContext"
+		class="com.nutrisystem.orange.java.config.SpringApplicationContext" />
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+	<bean id="dataLog4jXmlFile" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="datalog4j.xml" />
+	</bean>
+	<import resource="classpath:databaseContext.xml" />
+	<import resource="classpath:redisContext.xml" />
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	metadata-complete="true">
+	<display-name>java-app</display-name>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<distributable />
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+		<description>JAX-RS Tools Generated - Do not modify</description>
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+			<param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JAX-RS Servlet</servlet-name>
+		<url-pattern>/v1/*</url-pattern>
+	</servlet-mapping>
+	<persistence-context-ref>
+		<persistence-context-ref-name>persistence/fdb</persistence-context-ref-name>
+		<persistence-unit-name>fdbPersistenceUnit</persistence-unit-name>
+	</persistence-context-ref>
+	<persistence-context-ref>
+		<persistence-context-ref-name>persistence/app</persistence-context-ref-name>
+		<persistence-unit-name>appPersistenceUnit</persistence-unit-name>
+	</persistence-context-ref>
+</web-app>
