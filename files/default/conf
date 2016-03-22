@@ -1,0 +1,7 @@
+cd /tmp
+#curl -O https://www.loggly.com/install/configure-linux.sh
+#sudo bash configure-linux.sh -a USERNAME -r
+
+
+mkdir itworked
+
